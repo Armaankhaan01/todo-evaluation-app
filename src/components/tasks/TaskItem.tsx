@@ -1,7 +1,7 @@
 import { useRef, memo, useContext } from "react";
 import { Emoji } from "emoji-picker-react";
 import { DoneRounded, PushPinRounded, Link, DragIndicatorRounded } from "@mui/icons-material";
-import { Tooltip } from "@mui/material";
+import { Box, Tooltip } from "@mui/material";
 import type { Task, UUID } from "../../types/user";
 import {
   TaskContainer,
@@ -29,6 +29,7 @@ import { UserContext } from "../../contexts/UserContext";
 import { TaskContext } from "../../contexts/TaskContext";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import PriorityBadge from "./PriorityBadge";
 
 interface TaskItemProps {
   task: Task;
@@ -229,9 +230,10 @@ export const TaskItem = memo(
             </SharedByContainer>
           )}
 
-          {settings.enableCategories && task.category && (
-            <TaskCategoriesContainer>
-              {task.category.map((category) => (
+          <TaskCategoriesContainer>
+            {settings.enableCategories &&
+              task.category &&
+              task.category.map((category) => (
                 <CategoryBadge
                   key={category.id}
                   category={category}
@@ -241,8 +243,13 @@ export const TaskItem = memo(
                   }}
                 />
               ))}
-            </TaskCategoriesContainer>
-          )}
+
+            {task.priority && (
+              <Box sx={{ marginBottom: "" }}>
+                <PriorityBadge label={task.priority.label} color={task.priority.color} />
+              </Box>
+            )}
+          </TaskCategoriesContainer>
         </TaskInfo>
         <TaskActionsContainer>{actions}</TaskActionsContainer>
       </TaskContainer>

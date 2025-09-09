@@ -29,7 +29,7 @@ import { useStorageState } from "../../hooks/useStorageState";
 import { DialogBtn } from "../../styles";
 import { ColorPalette } from "../../theme/themeConfig";
 import type { Category, Task, UUID } from "../../types/user";
-import { getFontColor, showToast } from "../../utils";
+import { filterTasksByDate, getFontColor, showToast } from "../../utils";
 import {
   NoTasks,
   RingAlarm,
@@ -60,6 +60,7 @@ import {
 import { SortableContext, arrayMove, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import { restrictToVerticalAxis, restrictToParentElement } from "@dnd-kit/modifiers";
 import DisabledThemeProvider from "../../contexts/DisabledThemeProvider";
+import FilterSection from "./FilterTask";
 
 const TaskMenuButton = memo(
   ({ task, onClick }: { task: Task; onClick: (event: React.MouseEvent<HTMLElement>) => void }) => (
@@ -117,6 +118,8 @@ export const TasksList: React.FC = () => {
     [categoryId: UUID]: number;
   }>({});
   const [activeDragId, setActiveDragId] = useState<UniqueIdentifier | null>(null);
+  const [filter, setFilter] = useState<"all" | "today" | "week" | "custom">("all");
+  const [customRange, setCustomRange] = useState<{ start: Date; end: Date } | null>(null);
   const searchRef = useRef<HTMLInputElement>(null);
 
   const isMobile = useResponsiveDisplay();
@@ -131,6 +134,10 @@ export const TasksList: React.FC = () => {
       }),
     [],
   );
+
+  const filteredTasks = useMemo(() => {
+    return filterTasksByDate(user.tasks, filter, customRange ?? undefined);
+  }, [user.tasks, filter, customRange]);
 
   // Handler for clicking the more options button in a task
   const handleClick = (event: React.MouseEvent<HTMLElement>, taskId: UUID) => {
@@ -233,7 +240,7 @@ export const TasksList: React.FC = () => {
     [search, selectedCatId, user.settings?.doneToBottom, sortOption],
   );
 
-  const orderedTasks = useMemo(() => reorderTasks(user.tasks), [user.tasks, reorderTasks]);
+  const orderedTasks = useMemo(() => reorderTasks(filteredTasks), [filteredTasks, reorderTasks]);
 
   const confirmDeleteTask = () => {
     if (!selectedTaskId) {
@@ -406,51 +413,65 @@ export const TasksList: React.FC = () => {
       <TaskMenu />
       <TasksContainer style={{ marginTop: user.settings.showProgressBar ? "0" : "24px" }}>
         {user.tasks.length > 0 && (
-          <Box sx={{ display: "flex", alignItems: "center", gap: "10px", mb: "8px" }}>
-            <DisabledThemeProvider>
-              <SearchInput
-                inputRef={searchRef}
-                color="primary"
-                placeholder="Search for task..."
-                autoComplete="off"
-                value={search}
-                disabled={moveMode}
-                onChange={(e) => {
-                  setSearch(e.target.value);
-                }}
-                slotProps={{
-                  input: {
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <Search sx={{ color: "white", opacity: moveMode ? 0.5 : undefined }} />
-                      </InputAdornment>
-                    ),
-                    endAdornment: search ? (
-                      <InputAdornment position="end">
-                        <SearchClear
-                          color={
-                            orderedTasks.length === 0 && user.tasks.length > 0 ? "error" : "default"
-                          }
-                          onClick={() => setSearch("")}
-                        >
-                          <Close
-                            sx={{
-                              color:
-                                orderedTasks.length === 0 && user.tasks.length > 0
-                                  ? `${ColorPalette.red} !important`
-                                  : "white",
-                              transition: ".3s all",
-                            }}
-                          />
-                        </SearchClear>
-                      </InputAdornment>
-                    ) : undefined,
-                  },
-                }}
-              />
-              <TaskSort />
-            </DisabledThemeProvider>
-          </Box>
+          <>
+            <Box sx={{ display: "flex", alignItems: "center", gap: "10px", mb: "8px" }}>
+              <DisabledThemeProvider>
+                <SearchInput
+                  inputRef={searchRef}
+                  color="primary"
+                  placeholder="Search for task..."
+                  autoComplete="off"
+                  value={search}
+                  disabled={moveMode}
+                  onChange={(e) => {
+                    setSearch(e.target.value);
+                  }}
+                  slotProps={{
+                    input: {
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <Search sx={{ color: "white", opacity: moveMode ? 0.5 : undefined }} />
+                        </InputAdornment>
+                      ),
+                      endAdornment: search ? (
+                        <InputAdornment position="end">
+                          <SearchClear
+                            color={
+                              orderedTasks.length === 0 && user.tasks.length > 0
+                                ? "error"
+                                : "default"
+                            }
+                            onClick={() => setSearch("")}
+                          >
+                            <Close
+                              sx={{
+                                color:
+                                  orderedTasks.length === 0 && user.tasks.length > 0
+                                    ? `${ColorPalette.red} !important`
+                                    : "white",
+                                transition: ".3s all",
+                              }}
+                            />
+                          </SearchClear>
+                        </InputAdornment>
+                      ) : undefined,
+                    },
+                  }}
+                />
+                <TaskSort />
+              </DisabledThemeProvider>
+            </Box>
+            <Box sx={{ mb: 3 }}>
+              <DisabledThemeProvider>
+                <FilterSection
+                  onFilterChange={(filterType, range) => {
+                    setFilter(filterType);
+                    if (range) setCustomRange(range);
+                  }}
+                />
+              </DisabledThemeProvider>
+            </Box>
+          </>
         )}
         {categories !== undefined && categories?.length > 0 && user.settings.enableCategories && (
           <CategoriesListContainer>
