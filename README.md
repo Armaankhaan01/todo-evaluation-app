@@ -74,19 +74,19 @@ This app is a Progressive Web App (PWA), which means it can be installed on your
 
 ### 📷 New Feature Screenshots
 
-<img src="https://raw.githubusercontent.com/Armaankhaan01/todo-evaluation-app/main/arss1.png" width="300px" alt="Priority Badge in Task Card" />  
+<img src="https://raw.githubusercontent.com/Armaankhaan01/todo-evaluation-app/refs/heads/master/screenshots/arss1.png" width="300px" alt="Priority Badge in Task Card" />  
 *Priority Badge displayed on the Task Card in the Task List.*
 
-<img src="https://raw.githubusercontent.com/Armaankhaan01/todo-evaluation-app/main/arss2.png" width="300px" alt="Filter Section" />  
+<img src="https://raw.githubusercontent.com/Armaankhaan01/todo-evaluation-app/refs/heads/master/screenshots/arss2.png" width="300px" alt="Filter Section" />  
 *Filter section showing predefined filters (All Tasks, Today, This Week, Custom).*
 
-<img src="https://raw.githubusercontent.com/Armaankhaan01/todo-evaluation-app/main/arss3.png" width="300px" alt="Custom Range Filter" />  
+<img src="https://raw.githubusercontent.com/Armaankhaan01/todo-evaluation-app/refs/heads/master/screenshots/arss3.png" width="300px" alt="Custom Range Filter" />  
 *Custom range filter modal allowing to select a custom date range.*
 
-<img src="https://raw.githubusercontent.com/Armaankhaan01/todo-evaluation-app/main/arss4.png" width="300px" alt="Priority Select in Add Task" />  
+<img src="https://raw.githubusercontent.com/Armaankhaan01/todo-evaluation-app/refs/heads/master/screenshots/arss4.png" width="300px" alt="Priority Select in Add Task" />  
 *Priority select dropdown in the Add Task form.*
 
-<img src="https://raw.githubusercontent.com/Armaankhaan01/todo-evaluation-app/main/arss5.png" width="300px" alt="Priority Select in Edit Task" />  
+<img src="https://raw.githubusercontent.com/Armaankhaan01/todo-evaluation-app/refs/heads/master/screenshots/arss5.png" width="300px" alt="Priority Select in Edit Task" />  
 *Priority select dropdown in the Edit Task form.*
 
 ### 🔄 Update Prompt
