@@ -46,6 +46,7 @@
     "ntc-ts": "^0.0.8",
     "peerjs": "^1.5.4",
     "react": "^19.1.0",
+    "react-datepicker": "^8.7.0",
     "react-dom": "^19.1.0",
     "react-fast-marquee": "^1.6.5",
     "react-hot-toast": "^2.5.2",

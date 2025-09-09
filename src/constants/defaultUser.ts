@@ -58,7 +58,6 @@ export const defaultUser: User = {
   ],
   deletedCategories: [],
   favoriteCategories: ["ebe6ce8b-471f-4632-a23b-578e1038ce51"],
-  //TODO: make default colors better
   colorList: [
     "#FF69B4",
     "#FF22B4",
@@ -73,5 +72,13 @@ export const defaultUser: User = {
     "#FF9518",
     "#FF5018",
     "#FF2F2F",
+  ],
+
+  // New: Default Priorities
+  priorities: [
+    { id: "priority-low", label: "Low", color: "#4caf50" },
+    { id: "priority-medium", label: "Medium", color: "#ff9800" },
+    { id: "priority-high", label: "High", color: "#f44336" },
+    { id: "priority-critical", label: "Critical", color: "#d50000" },
   ],
 };

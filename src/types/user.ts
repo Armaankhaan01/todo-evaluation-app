@@ -32,6 +32,16 @@ export interface User {
   theme: "system" | (string & {});
   darkmode: DarkModeOptions;
   lastSyncedAt?: Date;
+  priorities: Priority[];
+}
+
+/**
+ * Represents a priority in the application.
+ */
+export interface Priority {
+  id: string;
+  label: string;
+  color: string;
 }
 
 /**
@@ -51,10 +61,11 @@ export interface Task {
   date: Date;
   deadline?: Date;
   category?: Category[];
+  priority?: Priority;
   lastSave?: Date;
   sharedBy?: string;
   /**
-   * Optional numeric position for drag-and-drop (for p2p sync)
+   * Optional numeric position for drag-and-drop (for pp sync)
    */
   position?: number;
 }

@@ -15,11 +15,12 @@ import { ColorPicker, CustomDialogTitle, CustomEmojiPicker } from "..";
 import { DESCRIPTION_MAX_LENGTH, TASK_NAME_MAX_LENGTH } from "../../constants";
 import { UserContext } from "../../contexts/UserContext";
 import { DialogBtn } from "../../styles";
-import { Category, Task } from "../../types/user";
+import { Category, Priority, Task } from "../../types/user";
 import { formatDate, showToast, timeAgo } from "../../utils";
 import { useTheme } from "@emotion/react";
 import { ColorPalette } from "../../theme/themeConfig";
 import { CategorySelect } from "../CategorySelect";
+import { PrioritySelect } from "./PrioritySelect";
 
 interface EditTaskProps {
   open: boolean;
@@ -33,7 +34,7 @@ export const EditTask = ({ open, task, onClose }: EditTaskProps) => {
   const [editedTask, setEditedTask] = useState<Task | undefined>(task);
   const [emoji, setEmoji] = useState<string | null>(null);
   const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
-
+  const [priority, setPriority] = useState<Priority | undefined>(task?.priority);
   const theme = useTheme();
 
   const nameError = useMemo(
@@ -54,6 +55,12 @@ export const EditTask = ({ open, task, onClose }: EditTaskProps) => {
     }));
   }, [emoji]);
 
+  useEffect(() => {
+    setEditedTask(task);
+    setSelectedCategories(task?.category as Category[]);
+    setPriority(task?.priority);
+  }, [task]);
+
   // Effect hook to update the editedTask when the task prop changes.
   useEffect(() => {
     setEditedTask(task);
@@ -70,6 +77,14 @@ export const EditTask = ({ open, task, onClose }: EditTaskProps) => {
       [name]: value,
     }));
   };
+
+  const handlePriorityChange = (priority: Priority | undefined): void => {
+    setPriority(priority);
+    setEditedTask((prevTask) => ({
+      ...(prevTask as Task),
+      priority,
+    }));
+  };
   // Event handler for saving the edited task.
   const handleSave = () => {
     document.body.style.overflow = "auto";
@@ -83,6 +98,7 @@ export const EditTask = ({ open, task, onClose }: EditTaskProps) => {
             emoji: editedTask.emoji || undefined,
             description: editedTask.description || undefined,
             deadline: editedTask.deadline || undefined,
+            priority: priority || undefined,
             category: editedTask.category || undefined,
             lastSave: new Date(),
           };
@@ -241,6 +257,11 @@ export const EditTask = ({ open, task, onClose }: EditTaskProps) => {
             },
           }}
         />
+        <PrioritySelect
+          selectedPriority={priority}
+          onPriorityChange={handlePriorityChange}
+          fontColor={theme.darkmode ? ColorPalette.fontLight : ColorPalette.fontDark}
+        />
 
         {settings.enableCategories !== undefined && settings.enableCategories && (
           <CategorySelect
@@ -249,6 +270,7 @@ export const EditTask = ({ open, task, onClose }: EditTaskProps) => {
             onCategoryChange={(categories) => setSelectedCategories(categories)}
           />
         )}
+
         <div
           style={{
             display: "flex",

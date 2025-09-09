@@ -1,4 +1,4 @@
-import { Category, Task } from "../types/user";
+import { Category, Priority, Task } from "../types/user";
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AddTaskButton, Container, StyledInput } from "../styles";
@@ -14,6 +14,7 @@ import { ColorPalette } from "../theme/themeConfig";
 import InputThemeProvider from "../contexts/InputThemeProvider";
 import { CategorySelect } from "../components/CategorySelect";
 import { useToasterStore } from "react-hot-toast";
+import { PrioritySelect } from "../components/tasks/PrioritySelect";
 
 const AddTask = () => {
   const { user, setUser } = useContext(UserContext);
@@ -35,6 +36,11 @@ const AddTask = () => {
     "sessionStorage",
   );
 
+  const [priority, setPriority] = useStorageState<Priority | undefined>(
+    user.priorities[0],
+    "priority",
+    "sessionStorage",
+  );
   const [isDeadlineFocused, setIsDeadlineFocused] = useState<boolean>(false);
 
   const n = useNavigate();
@@ -111,6 +117,7 @@ const AddTask = () => {
       date: new Date(),
       deadline: deadline !== "" ? new Date(deadline) : undefined,
       category: selectedCategories ? selectedCategories : [],
+      priority: priority || undefined,
     };
 
     setUser((prevUser) => ({
@@ -183,6 +190,7 @@ const AddTask = () => {
                   : descriptionError
             }
           />
+
           <StyledInput
             label="Task Deadline"
             name="name"
@@ -210,6 +218,12 @@ const AddTask = () => {
                   ) : undefined,
               },
             }}
+          />
+          <PrioritySelect
+            selectedPriority={priority}
+            onPriorityChange={setPriority}
+            width="400px"
+            fontColor={getFontColor(theme.secondary)}
           />
 
           {user.settings.enableCategories !== undefined && user.settings.enableCategories && (

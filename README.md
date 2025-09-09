@@ -50,8 +50,6 @@ Easily share your tasks with others using a link or QR code.
 
 **[Example Link](https://react-cool-todo-app.netlify.app/share?task=N4IgJg9gdgpiBcAzAhgGwM4wDQgA4EspYwEAXAJwFdsQpkBbOeEAdRgCN19SYACAERgA3GKgi5GUUiBxgY6AMbl8uUvmgIQAYXIxkPXsl6pkUMIQDmvXMgt8A7twAWvAEp6FpAHQArdL0QIcl4FVHwYKS9eJ1JSXHR4AHpE+1SvAE8ISlJKdhgvBQh6FP0FJwB+IQBedgBZAGsoRABpAA0ASQAxAEEADgAyUiqAJgBmdH7kdgB9MtNYVCrEXRgtCDktBlwvIIsZEBh6CB98TQBGRABOMDOAWgvRxAVb4YAGV7B7xAAWdnZ9wpiciaADE7AAbMNvohEPswPomCA3sMAKy3V7fF6vAAqrzO8DOl3gr3BXleAHZRgAtOF6MBhWCaZFojEvUa4-FnXrE15k940nAKBEWILpBAAbVA+BIzFew0uwwU7GQaMQ4Jgw1u3zOCkx7BRyHJtwUKMuyFeyGQMAUiBgo32dEYmhYQXq+0Ox1OzAeGoBECBoKhvRgMJAAF8sFKZWdwb1yWdUdryd9waMyaMcI7EWtzFA9jgPSdzogDaqYK9YYL-UFQeCbsNQ2GALo4EzoUgAZWQIiZcpZmLeHPgb3go15oxR1PDQA&userName=Maciej)**
 
-
-
 ### 🎨 Color Themes & Dark Mode
 
 Choose from various color themes and toggle between light and dark modes to suit your preferences.
@@ -73,6 +71,23 @@ Users can import and export tasks to/from JSON files. This feature allows users 
 This app is a Progressive Web App (PWA), which means it can be installed on your device, **used even when you're offline** and behave like a native app with shortcuts and app badges.
 
 <img src="https://raw.githubusercontent.com/maciekt07/TodoApp/main/screenshots/pwaTaskBar.png" alt="taskbar" width="260px" />
+
+### 📷 New Feature Screenshots
+
+<img src="https://raw.githubusercontent.com/Armaankhaan01/todo-evaluation-app/main/arss1.png" width="300px" alt="Priority Badge in Task Card" />  
+*Priority Badge displayed on the Task Card in the Task List.*
+
+<img src="https://raw.githubusercontent.com/Armaankhaan01/todo-evaluation-app/main/arss2.png" width="300px" alt="Filter Section" />  
+*Filter section showing predefined filters (All Tasks, Today, This Week, Custom).*
+
+<img src="https://raw.githubusercontent.com/Armaankhaan01/todo-evaluation-app/main/arss3.png" width="300px" alt="Custom Range Filter" />  
+*Custom range filter modal allowing to select a custom date range.*
+
+<img src="https://raw.githubusercontent.com/Armaankhaan01/todo-evaluation-app/main/arss4.png" width="300px" alt="Priority Select in Add Task" />  
+*Priority select dropdown in the Add Task form.*
+
+<img src="https://raw.githubusercontent.com/Armaankhaan01/todo-evaluation-app/main/arss5.png" width="300px" alt="Priority Select in Edit Task" />  
+*Priority select dropdown in the Edit Task form.*
 
 ### 🔄 Update Prompt
 
